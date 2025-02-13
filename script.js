@@ -4,8 +4,9 @@ document.getElementById('generate').addEventListener('click', function() {
     const uppercase = document.getElementById('uppercase').checked;
     const numbers = document.getElementById('numbers').checked;
     const symbols = document.getElementById('symbols').checked;
+    const language = document.getElementById('language').value;
 
-    const generatedPassword = generatePassword(length, lowercase, uppercase, numbers, symbols);
+    const generatedPassword = generatePassword(length, lowercase, uppercase, numbers, symbols, language);
     document.getElementById('result').textContent = generatedPassword;
 });
 
@@ -29,12 +30,22 @@ document.getElementById('save').addEventListener('click', function() {
     URL.revokeObjectURL(url);
 });
 
-function generatePassword(length, lowercase, uppercase, numbers, symbols) {
+function generatePassword(length, lowercase, uppercase, numbers, symbols, language) {
     let charSet = '';
-    if (lowercase) charSet += 'abcdefghijklmnopqrstuvwxyz';
-    if (uppercase) charSet += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    if (numbers) charSet += '0123456789';
-    if (symbols) charSet += '!@#$%^&*()_+~`|}{[]\:;?><,./-=';
+    if (language === 'english') {
+        if (lowercase) charSet += 'abcdefghijklmnopqrstuvwxyz';
+        if (uppercase) charSet += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        if (numbers) charSet += '0123456789';
+        if (symbols) charSet += '!@#$%^&*()_+~`|}{[]\:;?><,./-=';
+
+    } else if (language === 'hindi') {
+        if (lowercase) charSet += 'अआइईउऊऋएऐओऔकखगघङचछजझञटठडढणतथदधनपफबभमनयरलवशषसह';
+        if (uppercase) charSet += 'अआइईउऊऋएऐओऔकखगघङचछजझञटठडढणतथदधनपफबभमनयरलवशषसह';
+        if (numbers) charSet += '०१२३४५६७८९';
+        if (symbols) charSet += '!@#$%^&*()_+~`|}{[]\:;?><,./-=';
+
+    }
+    // Add more languages similarly
 
     let password = '';
     if (charSet.length > 0) {
